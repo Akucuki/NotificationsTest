@@ -1,4 +1,4 @@
-package com.pirkovitaliysoft.notificationstest
+package com.pirkovitaliysoft.notificationstest.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

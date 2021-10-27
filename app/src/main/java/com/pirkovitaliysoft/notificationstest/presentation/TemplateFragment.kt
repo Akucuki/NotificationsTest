@@ -5,17 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.pirkovitaliysoft.notificationstest.MainVM
-import com.pirkovitaliysoft.notificationstest.R
+import com.pirkovitaliysoft.notificationstest.presentation.viewModel.MainVM
 import com.pirkovitaliysoft.notificationstest.databinding.FragmentTemplateBinding
 
 private const val ARG_FRAGMENT_INDEX = "fragmentIndex"
 
 class TemplateFragment : Fragment() {
 
-    private var fragmentPosition: Int = 0
+    private var actualFragmentPosition: Int = 0
 
     private var _binding: FragmentTemplateBinding? = null
     private val binding get() = _binding!!
@@ -25,29 +23,20 @@ class TemplateFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            fragmentPosition = it.getInt(ARG_FRAGMENT_INDEX)
+            actualFragmentPosition = it.getInt(ARG_FRAGMENT_INDEX)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTemplateBinding.inflate(inflater, container, false)
 
-        val fragmentIndex = fragmentPosition + 1
-        binding.tvIndex.text = fragmentIndex.toString()
+        val fragmentPositionForUser = actualFragmentPosition + 1
+        binding.tvIndex.text = fragmentPositionForUser.toString()
 
-        binding.btAdd.setOnClickListener {
-            vm.plusOne()
-        }
-        binding.btRemove.setOnClickListener {
-            vm.minusOne()
-        }
-
-        binding.btCreateNotification.setOnClickListener {
-            (context as Notificator).pushNotificationForFragment(fragmentPosition)
-        }
+        initializeButtonsListeners()
 
         vm.currentCount.observe(viewLifecycleOwner) { count ->
             binding.btRemove.visibility = if (count < 2) {
@@ -58,6 +47,19 @@ class TemplateFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun initializeButtonsListeners() {
+        binding.btAdd.setOnClickListener {
+            vm.plusOne()
+        }
+        binding.btRemove.setOnClickListener {
+            vm.minusOne()
+        }
+
+        binding.btCreateNotification.setOnClickListener {
+            (context as Notificator).pushNotificationForFragment(actualFragmentPosition)
+        }
     }
 
     override fun onDestroyView() {

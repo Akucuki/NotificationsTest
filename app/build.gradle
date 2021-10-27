@@ -44,10 +44,12 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Fragment sugar
-    implementation("androidx.fragment:fragment-ktx:1.3.5")
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
 
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation"androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
