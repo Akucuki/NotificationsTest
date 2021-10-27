@@ -63,8 +63,7 @@ class MainActivity : FragmentActivity(), Notificator {
             adapterItemCount > viewModelItemCount -> {
                 viewPagerAdapter.removeLastFragment()
 
-                val removedFragmentActualPosition = viewModelItemCount - 1
-                removeNotificationForFragment(removedFragmentActualPosition)
+                removeNotificationForFragment(viewModelItemCount)
             }
         }
     }
